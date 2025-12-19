@@ -42,7 +42,7 @@ func main() {
 
 	fmt.Println("zage.pk, zage.vk 생성 완료")
 
-	// Witness 구현
+	// Witness 생성
 	assignment := AgeCircuit{
 		CurrentYear: 2025,
 		LimitAge:    20,
@@ -50,4 +50,11 @@ func main() {
 	}
 
 	witness, _ := frontend.NewWitness(&assignment, ecc.BN254.ScalarField())
+
+	// 증명서 생성
+	proof, _ := groth16.Prove(ccs, pk, witness)
+
+	proofFile, _ := os.Create("zage.proof")
+	proof.WriteTo(proofFile)
+	proofFile.Close()
 }
