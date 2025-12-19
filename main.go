@@ -46,22 +46,27 @@ func main() {
 	assignment := AgeCircuit{
 		CurrentYear: 2025,
 		LimitAge:    20,
-		BirthYear:   2005,
+		BirthYear:   2010,
 	}
 
 	witness, _ := frontend.NewWitness(&assignment, ecc.BN254.ScalarField())
 
 	// 증명서 생성
-	proof, _ := groth16.Prove(ccs, pk, witness)
+	proof, err := groth16.Prove(ccs, pk, witness)
 
-	proofFile, _ := os.Create("zage.proof")
-	proof.WriteTo(proofFile)
-	proofFile.Close()
+	if err != nil {
+		fmt.Println("증명 생성 실패")
+		return
+	} else {
+		proofFile, _ := os.Create("zage.proof")
+		proof.WriteTo(proofFile)
+		proofFile.Close()
+	}
 
 	// 검증
 	publicWitness, _ := witness.Public()
 
-	err := groth16.Verify(proof, vk, publicWitness)
+	err = groth16.Verify(proof, vk, publicWitness)
 
 	if err != nil {
 		fmt.Println("검증 실패", err)
