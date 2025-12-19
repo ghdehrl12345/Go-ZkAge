@@ -10,3 +10,11 @@ type AgeCircuit struct {
 	LimitAge    frontend.Variable `gnark:",public"`
 	BirthYear   frontend.Variable
 }
+
+// 로직 설계
+func (circuit *AgeCircuit) Define(api frontend.API) error {
+	myAge := api.Sub(circuit.CurrentYear, circuit.BirthYear)
+	api.AssertIsLessOrEqual(circuit.LimitAge, myAge)
+
+	return nil
+}
