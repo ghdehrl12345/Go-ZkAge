@@ -57,4 +57,15 @@ func main() {
 	proofFile, _ := os.Create("zage.proof")
 	proof.WriteTo(proofFile)
 	proofFile.Close()
+
+	// 검증
+	publicWitness, _ := witness.Public()
+
+	err := groth16.Verify(proof, vk, publicWitness)
+
+	if err != nil {
+		fmt.Println("검증 실패", err)
+	} else {
+		fmt.Println("성인 인증 완료")
+	}
 }
