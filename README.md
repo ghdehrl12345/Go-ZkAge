@@ -6,3 +6,5 @@
 4. Witness Generation : 비밀 데이터와 공개 데이터를 할당
 5. Proving : groth16.Prove로 증명서(proof)를 생성
 6. Verification : groth16.Verify로 증명서의 유효성을 검증
+
+설명 : https://www.notion.so/ZAGE-Go-2cbdae8d548580f79210f06ce2f1a5a9?source=copy_link
