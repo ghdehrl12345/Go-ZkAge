@@ -41,4 +41,13 @@ func main() {
 	vkFile.Close()
 
 	fmt.Println("zage.pk, zage.vk 생성 완료")
+
+	// Witness 구현
+	assignment := AgeCircuit{
+		CurrentYear: 2025,
+		LimitAge:    20,
+		BirthYear:   2005,
+	}
+
+	witness, _ := frontend.NewWitness(&assignment, ecc.BN254.ScalarField())
 }
